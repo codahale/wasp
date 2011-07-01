@@ -1,4 +1,4 @@
-package com.codahale.jernel
+package com.codahale.wasp
 
 trait Codec[A] {
   def recordType: Byte

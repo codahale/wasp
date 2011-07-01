@@ -1,6 +1,6 @@
-package com.codahale.jernel.tests
+package com.codahale.wasp.tests
 
-import com.codahale.jernel.Journal
+import com.codahale.wasp.Journal
 import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
 import scala.collection.immutable.SortedMap

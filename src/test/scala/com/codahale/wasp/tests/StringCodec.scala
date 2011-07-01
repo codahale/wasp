@@ -1,6 +1,6 @@
-package com.codahale.jernel.tests
+package com.codahale.wasp.tests
 
-import com.codahale.jernel.Codec
+import com.codahale.wasp.Codec
 import java.nio.charset.Charset
 import java.lang.String
 

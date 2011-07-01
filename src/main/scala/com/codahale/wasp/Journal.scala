@@ -1,4 +1,4 @@
-package com.codahale.jernel
+package com.codahale.wasp
 
 import scala.collection.JavaConversions._
 import scala.collection.immutable.SortedMap
