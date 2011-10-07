@@ -2,9 +2,9 @@ package com.codahale.wasp.tests
 
 import java.io.File
 import scala.collection.immutable.SortedMap
-import com.codahale.wasp.Journal
 import com.codahale.simplespec.Spec
 import org.junit.Test
+import com.codahale.wasp.{StringCodec, Journal}
 
 class JournalSpec extends Spec {
   val tempDir = mkTempDir()
@@ -22,7 +22,7 @@ class JournalSpec extends Spec {
     new Journal[String](tempDir, "temp.journal", StringCodec)
 
   override def beforeEach() {
-    journal.start()
+    journal.start(new MapHandler[String])
   }
 
   override def afterEach() {
@@ -46,7 +46,7 @@ class JournalSpec extends Spec {
 
       journal.stop()
 
-      journal.start().must(be(SortedMap(1L -> "one", 2L -> "two")))
+      journal.start(new MapHandler[String]).must(be(SortedMap(1L -> "one", 2L -> "two")))
     }
   }
 
@@ -60,7 +60,7 @@ class JournalSpec extends Spec {
 
       journal.stop()
 
-      journal.start().must(be(SortedMap.empty[Long, String]))
+      journal.start(new MapHandler[String]).must(be(SortedMap.empty[Long, String]))
     }
   }
 
@@ -74,7 +74,7 @@ class JournalSpec extends Spec {
 
       journal.stop()
 
-      journal.start().must(be(SortedMap(1L -> "ONE", 2L -> "TWO")))
+      journal.start(new MapHandler[String]).must(be(SortedMap(1L -> "ONE", 2L -> "TWO")))
     }
   }
 }

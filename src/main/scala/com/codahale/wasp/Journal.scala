@@ -60,7 +60,7 @@ class Journal[A](directory: File,
     )
   }
 
-  def start() = {
+  def start[B](handler: ReplayHandler[A, B]) = {
     logger.info("Starting journal")
     journal.start()
 
@@ -78,11 +78,12 @@ class Journal[A](directory: File,
     logger.info("Loaded {} records from journal", records.size())
     logger.debug("Ignoring {} prepared transactions", transactions.size())
 
-    var result = SortedMap.empty[Long, A]
-    for (r <- records) {
-      result += r.id -> codec.decode(r.data)
+    val iterator = records.iterator()
+    while (iterator.hasNext) {
+      val record = iterator.next()
+      handler.process(record.id, codec.decode(record.data))
     }
-    result
+    handler.result()
   }
 
   def stop() {
